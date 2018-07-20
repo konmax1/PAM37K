@@ -1,0 +1,74 @@
+Configuration	PAM
+STM32CubeMX 	4.22.0
+Date	07/18/2017
+MCU	STM32L432KCUx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC1	IN8 Single-ended	ADC1_IN8	PA3
+ADC1	IN11 Single-ended	ADC1_IN11	PA6
+RCC	BYPASS Clock Source	RCC_CK_IN	PA0
+RCC	Clock-out	RCC_MCO	PA8
+RTC	Activate RTC Clock Source	RTC_VS_RTC_Activate	VP_RTC_VS_RTC_Activate
+RTC	RTC Enabled	RTC_VS_RTC_Calendar	VP_RTC_VS_RTC_Calendar
+RTC	Internal Alarm A	RTC_VS_RTC_Alarm_A_Intern	VP_RTC_VS_RTC_Alarm_A_Intern
+SYS	Serial Wire	SYS_JTCK-SWCLK	PA14 (JTCK-SWCLK)
+SYS	Serial Wire	SYS_JTMS-SWDIO	PA13 (JTMS-SWDIO)
+SYS	TIM7	SYS_VS_tim7	VP_SYS_VS_tim7
+TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+TIM1	PWM Generation CH2 CH2N	TIM1_CH2	PA9
+TIM1	PWM Generation CH2 CH2N	TIM1_CH2N	PB0
+USB	Device (FS)	USB_DM	PA11
+USB	Device (FS)	USB_DP	PA12
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+2	PC14-OSC32_IN (PC14)*	RCC_OSC32_IN	
+3	PC15-OSC32_OUT (PC15)*	RCC_OSC32_OUT	
+6	PA0	RCC_CK_IN	MCO [High speed clock in]
+7	PA1	GPIO_Input	
+8	PA2	GPIO_Output	U_gen
+9	PA3	ADC1_IN8	
+11	PA5	GPIO_Input	
+12	PA6	ADC1_IN11	
+13	PA7	GPIO_Output	LED
+14	PB0	TIM1_CH2N	
+18	PA8	RCC_MCO	
+19	PA9	TIM1_CH2	
+20	PA10	GPIO_Input	USB_V
+21	PA11	USB_DM	
+22	PA12	USB_DP	
+23	PA13 (JTMS-SWDIO)	SYS_JTMS-SWDIO	SWDIO
+24	PA14 (JTCK-SWCLK)	SYS_JTCK-SWCLK	SWCLK
+25	PA15 (JTDI)	GPIO_Output	U_GEN
+26	PB3 (JTDO-TRACESWO)	GPIO_Output	LD3 [Green]
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : PAM
+Project Folder : D:\SVN\Project\PAMv2
+Toolchain / IDE : MDK-ARM V5
+Firmware Package Name and Version : STM32Cube FW_L4 V1.8.1
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+

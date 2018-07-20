@@ -1,0 +1,22 @@
+
+T2B64 009:252 SEGGER J-Link V6.30h Log File (0004ms, 0023ms total)
+T2B64 009:252 DLL Compiled: Mar 16 2018 18:02:51 (0004ms, 0023ms total)
+T2B64 009:252 Logging started @ 2018-07-20 16:26 (0004ms, 0023ms total)
+T2B64 009:256 JLINK_SetWarnOutHandler(...) (0001ms, 0024ms total)
+T2B64 009:257 JLINK_OpenEx(...)
+  ***** Error: Cannot connect to J-Link via USB.  returns "Cannot connect to J-Link via USB." (0002ms, 0026ms total)
+
+  ***** API Error: API JLINK_GetHardwareVersion function called before JLINKARM_Open()
+T2B64 009:259 
+  ***** Error: Cannot connect to J-Link via USB.JLINK_IsOpen()  returns 0x00 (0000ms, 0028ms total)
+T2B64 011:559 JLINK_EMU_SelectByUSBSN(SerialNo = 0)  returns 0xFFFFFFFF (0002ms, 0030ms total)
+T2B64 011:561 JLINK_EnableLog(...) (0000ms, 0030ms total)
+T2B64 011:561 JLINK_SetWarnOutHandler(...) (0000ms, 0030ms total)
+T2B64 011:561 JLINK_OpenEx(...)
+  ***** Error: Cannot connect to J-Link via USB.  returns "Cannot connect to J-Link via USB." (0002ms, 0032ms total)
+
+  ***** API Error: API JLINK_GetHardwareVersion function called before JLINKARM_Open()
+T2B64 011:563 
+  ***** Error: Cannot connect to J-Link via USB.JLINK_Close() (0000ms, 0033ms total)
+T2B64 017:949  (0000ms, 0033ms total)
+T2B64 017:949 Closed (0000ms, 0033ms total)
