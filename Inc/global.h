@@ -91,7 +91,6 @@ private:
     uint32_t outVal;
     float Ftim;
     uint8_t dPSPOut[256];
-    //uint8_t dPSPFind[256];
     uint16_t sintable[SIZE_TABLE * 2];
     float freqDiskr;
     data_signal dataOut;
@@ -111,6 +110,7 @@ public:
     SIGNAL();
     void changePSKbit();
     void emitSignal(); 
+    uint8_t& getdPSPOut();
     data_signal& getSignalData();
     data_signal& getFindData();
     void initTxMode(data_signal& _ds);

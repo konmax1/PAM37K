@@ -113,14 +113,18 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile></tIfile>
+        <tIfile>.\display.ini</tIfile>
         <pMon>Segger\JL2CM3.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>JL2CM3</Key>
-          <Name>-U -O78 -S8 -ZTIFSpeedSel50000 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32L4xx_256.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L432KCUx$CMSIS\Flash\STM32L4xx_256.FLM)</Name>
+          <Name>-U260106290 -O78 -S8 -ZTIFSpeedSel50000 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32L4xx_256.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L432KCUx$CMSIS\Flash\STM32L4xx_256.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -145,17 +149,12 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGTARM</Key>
-          <Name>(1010=2643,255,3093,811,0)(1007=2025,136,2212,410,0)(1008=1043,37,1419,272,0)(1009=2040,152,2298,739,0)(1012=2055,168,2532,482,0)</Name>
+          <Name>(1010=2643,255,3093,811,0)(1007=2025,136,2212,410,0)(1008=838,171,1214,406,0)(1009=2040,152,2298,739,0)(1012=2055,168,2532,482,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMDBGFLAGS</Key>
           <Name>-T0</Name>
-        </SetRegEntry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGUARM</Key>
-          <Name>(105=2070,185,2749,542,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -168,96 +167,195 @@
           <Name>-U49FF6A067087535047381367 -O2254 -SF1800 -C0 -A0 -I0 -HNlocalhost -HP7184 -P2 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO178 -TC80000000 -TP21 -TDS8027 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO7 -FD20000000 -FC1000 -FN1 -FF0STM32L4xx_256.FLM -FS08000000 -FL040000 -FP0($$Device:STM32L432KCUx$CMSIS\Flash\STM32L4xx_256.FLM)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>86</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134227742</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>../Src/stm32l4xx_it.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\PAM\../Src/stm32l4xx_it.c\86</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>smpl,0x0A</ItemText>
+          <ItemText>SystemCoreClock,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>sleep,0x0A</ItemText>
+          <ItemText>Sample</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dataFind</ItemText>
+          <ItemText>CExp</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>state</ItemText>
+          <ItemText>GILBERT_COEFF</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>&amp;adc</ItemText>
+          <ItemText>t5-t4,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>event</ItemText>
+          <ItemText>DWT-&gt;CYCCNT,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>data</ItemText>
+          <ItemText>DWT-&gt;CYCCNT-t2,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>timVal,0x0A</ItemText>
+          <ItemText>flashdata</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>*curMode</ItemText>
+          <ItemText>FFT_Buf</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dataOut.freq2</ItemText>
+          <ItemText>Porog</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>bpskNUM</ItemText>
+          <ItemText>Corr</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>bpskCNT</ItemText>
+          <ItemText>delayLineCORR</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>curMode</ItemText>
+          <ItemText>Avr_Norm_Dec</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>RCC_OscInitStruct</ItemText>
+          <ItemText>Avr</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SystemCoreClock,0x0A</ItemText>
+          <ItemText>norm</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>DWT-&gt;CYCCNT - t1,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>16</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>DWT-&gt;CYCCNT - t2,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>17</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>psk</ItemText>
+        </Ww>
+        <Ww>
+          <count>18</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>maxFNVstat,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>19</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>bpsk_mas_cnt,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>20</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>bpsk_mas</ItemText>
         </Ww>
       </WatchWindow1>
+      <WatchWindow2>
+        <Ww>
+          <count>0</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>psk.DelayLine</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>GilbertBufer</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug_avr</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug_signal</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>debug_avr</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>bpsk_mas</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>currSignal</ItemText>
+        </Ww>
+      </WatchWindow2>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>0x08020000</ItemText>
+          <AccSizeX>0</AccSizeX>
+        </Mm>
+      </MemoryWindow1>
       <ScvdPack>
         <Filename>C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\RTOS2\RTX\RTX5.scvd</Filename>
         <Type>ARM.CMSIS.5.3.0</Type>
         <SubType>1</SubType>
       </ScvdPack>
+      <ToolboxButtons>
+        <Wi>
+          <IntNumber>0</IntNumber>
+          <FirstString>Log Array</FirstString>
+          <SecondString>displayvalues()</SecondString>
+        </Wi>
+      </ToolboxButtons>
       <Tracepoint>
         <THDelay>0</THDelay>
       </Tracepoint>
       <DebugFlag>
         <trace>1</trace>
         <periodic>1</periodic>
-        <aLwin>1</aLwin>
+        <aLwin>0</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
@@ -293,40 +391,6 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
-      <SystemViewers>
-        <Entry>
-          <Name>System Viewer\ADC</Name>
-          <WinId>35899</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\EXTI</Name>
-          <WinId>35896</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\GPIOA</Name>
-          <WinId>35901</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\GPIOB</Name>
-          <WinId>35905</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\SYSCFG</Name>
-          <WinId>35904</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\TIM1</Name>
-          <WinId>35902</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\TIM6</Name>
-          <WinId>35900</WinId>
-        </Entry>
-        <Entry>
-          <Name>System Viewer\TIM7</Name>
-          <WinId>35897</WinId>
-        </Entry>
-      </SystemViewers>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableLog>0</EnableLog>
@@ -678,7 +742,7 @@
 
   <Group>
     <GroupName>Drivers/CMSIS</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -698,7 +762,7 @@
 
   <Group>
     <GroupName>Middlewares/USB_Device_Library</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -801,18 +865,6 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Src\gilbert.cpp</PathWithFileName>
-      <FilenameWithoutPath>gilbert.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>5</GroupNumber>
-      <FileNumber>37</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
       <PathWithFileName>..\Src\psk.cpp</PathWithFileName>
       <FilenameWithoutPath>psk.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -828,7 +880,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>38</FileNumber>
+      <FileNumber>37</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -840,7 +892,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>39</FileNumber>
+      <FileNumber>38</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -852,7 +904,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>40</FileNumber>
+      <FileNumber>39</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -864,7 +916,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>41</FileNumber>
+      <FileNumber>40</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -876,7 +928,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>42</FileNumber>
+      <FileNumber>41</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -888,8 +940,8 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>43</FileNumber>
-      <FileType>1</FileType>
+      <FileNumber>42</FileNumber>
+      <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
@@ -900,7 +952,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>44</FileNumber>
+      <FileNumber>43</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -912,7 +964,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>45</FileNumber>
+      <FileNumber>44</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

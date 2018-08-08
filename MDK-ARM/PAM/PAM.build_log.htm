@@ -22,14 +22,20 @@ Dialog DLL:      TCM.DLL V1.35.1.0
  
 <h2>Project:</h2>
 E:\SVN\Project\PAM37K\MDK-ARM\PAM.uvprojx
-Project File Date:  07/20/2018
+Project File Date:  08/08/2018
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 *** Warning: Using Microlib and C++ file(s) might cause the linker to fail !
   
 Build target 'PAM'
-".\PAM\PAM.axf" - 0 Error(s), 0 Warning(s).
+compiling psk.cpp...
+..\Src\psk.cpp(179): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+      norm = 1. / norm;
+..\Src\psk.cpp: 1 warning, 0 errors
+linking...
+Program Size: Code=38584 RO-data=2780 RW-data=12120 ZI-data=19120  
+".\PAM\PAM.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -88,7 +94,7 @@ Package Vendor: Keil
       Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

@@ -70,20 +70,16 @@ extern TIM_HandleTypeDef htim7;
 void ADC1_IRQHandler(void)
 {
   /* USER CODE BEGIN ADC1_IRQn 0 */
-  //psk.adc_sample = HAL_ADCEx_InjectedGetValue(&hadc1,ADC_INJECTED_RANK_2);     
     volatile osStatus_t stat;
-    uint16_t adc;
     volatile uint32_t ISR = ADC1->ISR;
     if( ISR & ADC_ISR_JEOS)
     {
         ADC1->ISR |= ADC_ISR_JEOS;    
         //adc = ADC1->JDR2; // Instrumental amplifier
-        adc = ADC1->JDR1;      // logariphmic amplifier   
-        psk.adc_sample = adc;
-        t1= DWT->CYCCNT; 
-        if(psk.Average()) 
+        //adc = ADC1->JDR1;      // logariphmic amplifier   
+        psk.adc_sample = ADC1->JDR1;      // logariphmic amplifier   
+        if(psk.AverageAndCorrelation()) 
         {
-            t2= DWT->CYCCNT; 
             stat = osSemaphoreRelease(adcHandle);
             if( stat != osOK)
             { 
@@ -95,32 +91,6 @@ void ADC1_IRQHandler(void)
     { 
         psk.adc_sample = ADC1->JDR2 + 1; 
     }
-//    ADC1->ISR &= ~ADC_ISR_EOS;
-  /*if(ADC1->ISR & ADC_ISR_JEOS)
-  {
-      psk.adc_sample = ADC1->JDR2;
-      ADC1->ISR |= ADC_ISR_JEOS;
-      osStatus_t stat; 
-      if(psk.Average()) 
-      {
-          t1 = DWT->CYCCNT;*/
-    //t2 = DWT->CYCCNT;
-    //xSemaphoreGiveFromISR(adcHandle,&xYeild);
-    //t1 = DWT->CYCCNT;
-    //psk.Correllation();
-    //t2 = DWT->CYCCNT;
-          //stat = osSemaphoreRelease(adcHandle) ;    
-    //t3 = DWT->CYCCNT;
-          //if( stat != osOK)
-          //{
-             //psk.adc_sample = ADC1->JDR2 + 2;   
-          //}
-    /*if(xYeild == pdTRUE)
-    {
-        taskYIELD();
-    }*/
-      //}
-  //GPIOA->ODR ^= GPIO_PIN_7;
   /* USER CODE END ADC1_IRQn 0 */
   HAL_ADC_IRQHandler(&hadc1);
   /* USER CODE BEGIN ADC1_IRQn 1 */

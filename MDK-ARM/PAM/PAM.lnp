@@ -34,7 +34,6 @@
 ".\pam\communication.o"
 ".\pam\global.o"
 ".\pam\thread.o"
-".\pam\gilbert.o"
 ".\pam\psk.o"
 ".\pam\main.o"
 ".\pam\usb_device.o"

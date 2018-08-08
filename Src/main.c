@@ -71,6 +71,9 @@ RTC_HandleTypeDef hrtc;
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim6;
 
+DMA_HandleTypeDef hdma_memtomem_dma1_channel1;
+DMA_HandleTypeDef hdma_memtomem_dma1_channel2;
+
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 osThreadId_t defaultTaskHandle;
@@ -97,6 +100,7 @@ void iwdgThread(void * argument);
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 void MX_ADC1_Init(void);
 void MX_TIM1_Init(void);
 void MX_RTC_Init(void);
@@ -125,7 +129,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   //EventRecorderInitialize (EventRecordAll, 1);  // initialize and start Event Recorder
-  MX_GPIO_Init();
+  MX_GPIO_Init(); 
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -146,12 +150,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_TIM1_Init();
   MX_RTC_Init();
   MX_TIM6_Init();
   MX_DAC1_Init();
-  MX_IWDG_Init();
+  //MX_IWDG_Init();
   /* USER CODE BEGIN 2 */
   osKernelInitialize(); 
   osThreadAttr_t worker_attr;
@@ -547,6 +552,49 @@ void MX_TIM6_Init(void)
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
   if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+
+/** 
+  * Enable DMA controller clock
+  * Configure DMA for memory to memory transfers
+  *   hdma_memtomem_dma1_channel1
+  *   hdma_memtomem_dma1_channel2
+  */
+static void MX_DMA_Init(void) 
+{
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* Configure DMA request hdma_memtomem_dma1_channel1 on DMA1_Channel1 */
+  hdma_memtomem_dma1_channel1.Instance = DMA1_Channel1;
+  hdma_memtomem_dma1_channel1.Init.Request = DMA_REQUEST_0;
+  hdma_memtomem_dma1_channel1.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  hdma_memtomem_dma1_channel1.Init.PeriphInc = DMA_PINC_ENABLE;
+  hdma_memtomem_dma1_channel1.Init.MemInc = DMA_MINC_ENABLE;
+  hdma_memtomem_dma1_channel1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+  hdma_memtomem_dma1_channel1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+  hdma_memtomem_dma1_channel1.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma1_channel1.Init.Priority = DMA_PRIORITY_HIGH;
+  if (HAL_DMA_Init(&hdma_memtomem_dma1_channel1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  /* Configure DMA request hdma_memtomem_dma1_channel2 on DMA1_Channel2 */
+  hdma_memtomem_dma1_channel2.Instance = DMA1_Channel2;
+  hdma_memtomem_dma1_channel2.Init.Request = DMA_REQUEST_0;
+  hdma_memtomem_dma1_channel2.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  hdma_memtomem_dma1_channel2.Init.PeriphInc = DMA_PINC_ENABLE;
+  hdma_memtomem_dma1_channel2.Init.MemInc = DMA_MINC_ENABLE;
+  hdma_memtomem_dma1_channel2.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+  hdma_memtomem_dma1_channel2.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+  hdma_memtomem_dma1_channel2.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma1_channel2.Init.Priority = DMA_PRIORITY_HIGH;
+  if (HAL_DMA_Init(&hdma_memtomem_dma1_channel2) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
