@@ -327,11 +327,9 @@ extern "C" void eModeRxTx(void *argument)
         p_t[i] = ( p_t[i] + 1) / 2;
     }
     currSignal.getSignalData().duration = 40;
-    currSignal.getFindData().num_kvant_psp = 10;
+    currSignal.getFindData().num_kvant_psp = 5;
     currSignal.getSignalData().num_kvant_psp = 5;
     //end of temp
-
-    psk.SetCurrentPSP(0);
     //DAC1->CR |= DAC_CR_EN1;
     psk.SetParamFSK(currSignal.getFindData().freq1 - 30000,
                     currSignal.getFindData().num_kvant_psp / 5,

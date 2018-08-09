@@ -1,5 +1,6 @@
 #include "psk.h"
 #include "stm32l4xx_hal.h"
+#include "arm_math.h"
 //#include "stm32f7xx_hal.h"
 #ifdef PAM1
 int8_t psp_codInput[255] = {1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, 1, -1, -1, 1, 1, -1, 1,
@@ -47,7 +48,7 @@ void PSK::SetParamFSK(float f, int S, int R, float p_m, int equ, float Prg)
 
   Fsampling = f * FRate;                          // Fs = f*R Гц
   float Div = HAL_RCC_GetPCLK2Freq() / Fsampling; // делитель на таймер
-  TimDiv = Round(Div);
+  TimDiv = roundf(Div);
   Fsampling = HAL_RCC_GetPCLK2Freq() / (float)TimDiv; // уточненная частота дискретизации
   Frequence = Fsampling / (float)R;                   // уточненная несущая частота
   arg = 2 * M_PI * Frequence / Fsampling;             // аргумент для вычисления отсчета комплексного колебания
@@ -60,14 +61,6 @@ void PSK::loadBPSP(unsigned char *cod, unsigned int _base, int channel_num)
 {
   Base = _base;
   float *p_psp;
-  if (channel_num == 0)
-  {
-    p_psp = psp_0;
-  }
-  else
-  {
-    p_psp = psp_1;
-  }
   volatile int i, j;
   for (i = 0, j = 0; i < Base; i++, j += 2)
   {
@@ -87,14 +80,6 @@ void PSK::loadQPSP(unsigned char *cod, unsigned int _base, int channel_num)
 {
   Base = _base;
   float *p_psp;
-  if (channel_num == 0)
-  {
-    p_psp = psp_0;
-  }
-  else
-  {
-    p_psp = psp_1;
-  }
   volatile int i, j;
   for (i = 0, j = 0; i < Base; i += 2, j += 2)
   {
@@ -118,27 +103,6 @@ void PSK::loadQPSP(unsigned char *cod, unsigned int _base, int channel_num)
   }
 }
 
-void PSK::SetCurrentPSP(int channel_num)
-{
-  if (channel_num == 0)
-  {
-    psp = psp_0;
-  }
-  else
-  {
-    psp = psp_1;
-  }
-};
-
-int PSK::Round(double x)
-{
-  int y = (int)x;
-  if ((x - y) < 0.5)
-    return y;
-  else
-    return y + 1;
-}
-
 int16_t adc_max = 0;
 int PSK::AverageAndCorrelation()
 {    
@@ -155,14 +119,14 @@ int PSK::AverageAndCorrelation()
       adc_max = adc_sample_0;
   }
   Sample[0] = (float)adc_sample_0 * (1. / 2048.0); // нормируем отсчет (-1..1)    
-  float argt = arg * t;                            // аргумента у синуса и косинуса
-  CExp[0] =  arm_cos_f32(argt);                     // опорное колебание
-  CExp[1] =  arm_sin_f32(argt);
-  t++;
-  //arm_sin_cos_f32(argt,&CExp[1],&CExp[0]);
+  float argt = arg * time;                            // аргумента у синуса и косинуса
+  //CExp[0] =  arm_cos_f32(argt);                     // опорное колебание
+  //CExp[1] =  arm_sin_f32(argt);
+  time++;
+  arm_sin_cos_f32(argt,&CExp[1],&CExp[0]);
   /*if (t == Fsampling * 100)
     t = 0;*/
-  t = ( t + 1) % 3000000;
+  time = ( time + 1) % 3000000;
   CountSample++;  
   while ((DMA1->ISR & DMA_ISR_TCIF1) == 0)
   {
@@ -176,7 +140,7 @@ int PSK::AverageAndCorrelation()
   if (CountSample == Rate)
   { // канал 2
     arm_cmplx_mag_f32(&Avr[0], &norm, 1);
-    norm = 1. / norm;
+    norm = (float)1 / norm;
     Avr_Norm_Dec[0] = Avr[0] * norm;
     Avr_Norm_Dec[1] = Avr[1] * norm;
     CountSample = 0;  

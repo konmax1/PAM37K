@@ -41,6 +41,9 @@
 
 
 
+volatile int32_t d_val = 0;
+volatile osStatus_t stat;
+volatile uint32_t ISR;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -70,8 +73,7 @@ extern TIM_HandleTypeDef htim7;
 void ADC1_IRQHandler(void)
 {
   /* USER CODE BEGIN ADC1_IRQn 0 */
-    volatile osStatus_t stat;
-    volatile uint32_t ISR = ADC1->ISR;
+    ISR = ADC1->ISR;
     if( ISR & ADC_ISR_JEOS)
     {
         ADC1->ISR |= ADC_ISR_JEOS;    
@@ -83,7 +85,7 @@ void ADC1_IRQHandler(void)
             stat = osSemaphoreRelease(adcHandle);
             if( stat != osOK)
             { 
-                psk.adc_sample = ADC1->JDR2 + 2;
+                d_val++;
             }
         }
     }
