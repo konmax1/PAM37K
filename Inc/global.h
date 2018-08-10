@@ -4,7 +4,6 @@
 #include "stm32l4xx_hal.h"
 #include "string.h"
 #include "arm_math.h"
-#include "cmsis_os2.h"
 #include "psk.h"
 
 #define SIZE_TABLE (30)
@@ -116,10 +115,6 @@ public:
     void initTxMode(data_signal& _ds);
     void initTxRxMode(data_signal& _dsFind,data_signal& _dsOut);
     void initMode(data_signal& _dsFind,data_signal& _dsOut, typeRUN _typerun);
-    void loadFromFlash();
-    void loadFromFlashNextSignal();
-	//void setRunSetting(typeRUN &_tr);
-	//void init
     void StartAudio();
     void StopAudio();
     void calcNext();
@@ -127,38 +122,24 @@ public:
     
 };
 
-extern flashDATA flashdata;
 
 extern SIGNAL currSignal;
+
+
 extern ADC_HandleTypeDef hadc1;
-extern DAC_HandleTypeDef hdac1;
 extern RTC_HandleTypeDef hrtc;
-//extern DAC_HandleTypeDef hdac1;
 
 extern IWDG_HandleTypeDef hiwdg;
 extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim1;
-
-extern osThreadId_t defaultTaskHandle;
-extern osThreadId_t Mode1Handle;
-extern osThreadId_t Mode2Handle;
-extern osThreadId_t ModeRxTxHandle;
-extern osThreadId_t LedToggleHandle;
-extern osThreadId_t ButtonThreadHandle;
-//extern osThreadId_t iwdgThreadHandle;
-
-extern osSemaphoreId_t rtcIRQHandle;
-extern osSemaphoreId_t adcHandle;
-extern osSemaphoreId_t ButtonHandle;
-
-extern osMessageQueueId_t adcQueueHandle;
 
 extern volatile unsigned int t1,t2,t3,t4,t5;
 
 
 
 
-
+#define AVR_SAMPLE_RDY 0x00001000
+extern uint32_t statFlag;
 
 
 

@@ -61,7 +61,7 @@ class PSK
   int TimDiv;      // делитель для таймера
   float arg;       // аргумент для вычисления опорного колебания
 
-  unsigned int t;           // время (для умножения)
+  unsigned int time;           // время (для умножения)
   unsigned int CountSample; // счетчик для прореживания
   float norm;               // норма комплексного числа
   short adc_sample_0;       // отсчет АЦП центрированный
@@ -85,18 +85,14 @@ class PSK
   float Porog;                          // порог обнаружения
 
   // текущие псп (четные - реальная часть (сама последовательность), нечетные - мнимая часть (0))
-  float psp_0[2 * (MAX_BASE + 1)];
-  float psp_1[2 * (MAX_BASE + 1)];
-  float *psp;
-  int Round(double x);
+  float psp[2 * (MAX_BASE + 1)];
 
 public:
   volatile short adc_sample; // отсчет АЦП
   unsigned int Base;
-  float phaze0[2];
   PSK()
   {
-    t = 0;
+    time = 0;
     CountSample = 0;
     delayLineDMA = &DelayLine[0][0];
     delayLineCORR = &DelayLine[1][0];
@@ -104,7 +100,6 @@ public:
   void SetParamFSK(float f, int S, int R, float p_m, int equ, float Prg);
   void loadBPSP(unsigned char *cod, unsigned int _base, int channel_num);
   void loadQPSP(unsigned char *cod, unsigned int _base, int channel_num);
-  void SetCurrentPSP(int channel_num);
   int AverageAndCorrelation();
   int CorrellationV2();
 };

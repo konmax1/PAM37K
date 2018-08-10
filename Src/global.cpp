@@ -1,12 +1,8 @@
 #include "global.h"
-#include "usb_device.h"
 
 SIGNAL currSignal;
-flashDATA flashdata __attribute__((at(ADDRESS_FLASH_DATA))); //@ ADDRESS_FLASH_DATA;
 
 volatile unsigned int t1, t2, t3, t4, t5;
-
-extern "C" void iwdgThread(void *argument);
 
 void SIGNAL::setSignalData(data_signal &_ds)
 {
@@ -327,7 +323,7 @@ void SIGNAL::StartAudio()
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     HAL_GPIO_Init(LED_But_GPIO_Port, &GPIO_InitStruct);
     EXTI->IMR1 &= ~EXTI_IMR1_IM7;
-    osThreadResume(LedToggleHandle);
+    //    osThreadResume(LedToggleHandle);
 
     TIM1->SR = 0;
     NVIC_DisableIRQ(TIM1_UP_TIM16_IRQn);
@@ -364,7 +360,7 @@ void SIGNAL::StopAudio()
     CLEAR_BIT(TIM2->CR1, TIM_CR1_CEN);
     NVIC_ClearPendingIRQ(EXTI9_5_IRQn);
     HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
-    osThreadSuspend(LedToggleHandle);
+    //    osThreadSuspend(LedToggleHandle);
 
     //DAC->DHR12R1 = 0;
 }
@@ -376,6 +372,7 @@ void SIGNAL::initTxMode(data_signal &_ds)
 
 void SIGNAL::initTxRxMode(data_signal &_dsFind, data_signal &_dsOut)
 {
+    SET_BIT(AnalogStage_GPIO_Port->ODR, AnalogStage_Pin);
     setSignalData(_dsOut);
     setFindData(_dsFind);
 }
@@ -396,90 +393,15 @@ void SIGNAL::initMode(data_signal &_dsFind, data_signal &_dsOut, typeRUN _typeru
     };
 }
 
-void SIGNAL::loadFromFlash()
-{
-    /*if(GPIOA->ODR & PWR_GPIO_BIT_10) 
-        return;*/
-    RTC_AlarmTypeDef sAlarm;
-    typerun = flashdata.cnfg.typerun;
-    uint32_t pos;
-
-    switch (typerun)
-    {
-    case eTx:
-        //iwdgThreadHandle = osThreadNew(iwdgThread, NULL, NULL);
-        if ((GPIOA->IDR & PWR_GPIO_BIT_10) == 0)
-        {
-            pos = HAL_RTCEx_BKUPRead(&hrtc, 1);
-            if (pos > flashdata.cnfg.cntSIGNAL)
-            {
-                osThreadSuspend(Mode2Handle);
-                osThreadSuspend(Mode1Handle);
-                break;
-                //pos = 9;
-            }
-            //подготавливаем данные
-            initTxMode(flashdata.cnfg.sig[pos]);
-            if (flashdata.cnfg.cntSIGNAL > 1)
-            {
-                //режим 2
-                //установить будильник
-                //проверка в случае перезагрузки на диапазон будильника
-                sAlarm.AlarmTime.Hours = dataOut.HH;
-                sAlarm.AlarmTime.Minutes = dataOut.MM;
-                sAlarm.AlarmTime.Seconds = 0x0;
-                sAlarm.AlarmTime.SubSeconds = 0x0;
-                sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
-                sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_SET;
-                sAlarm.AlarmMask = RTC_ALARMMASK_NONE;
-                sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
-                sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-                sAlarm.AlarmDateWeekDay = dataOut.DD;
-                sAlarm.Alarm = RTC_ALARM_A;
-                HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD);
-                osThreadResume(Mode2Handle);
-            }
-            else
-            {
-                //режим 1
-                //включаем поток и работаем пока не сядет батарейка
-                osThreadResume(Mode1Handle);
-            }
-        }
-        osThreadSuspend(defaultTaskHandle);
-        break;
-    case eRxTx:
-        //подготавливаем данные
-        SET_BIT(AnalogStage_GPIO_Port->ODR, AnalogStage_Pin);
-        initTxRxMode(flashdata.cnfg.sig[0], flashdata.cnfg.sig[1]);
-        if ((GPIOA->IDR & PWR_GPIO_BIT_10) == 0)
-        {
-            osThreadResume(ModeRxTxHandle);
-        }
-        break;
-    case eReserveRUN:
-        break;
-    };
-}
-
-void SIGNAL::loadFromFlashNextSignal()
-{
-    uint32_t pos;
-    pos = HAL_RTCEx_BKUPRead(&hrtc, 1);
-    pos++;
-    HAL_RTCEx_BKUPWrite(&hrtc, 1, pos);
-    loadFromFlash();
-}
-
 void SIGNAL::emitSignal()
 {
-    osDelay(currSignal.getSignalData().signal_pause);
-    currSignal.StartAudio();
-    if (currSignal.getSignalData().duration > 0)
-    {
-        osDelay(currSignal.getSignalData().duration * 10);
-        currSignal.StopAudio();
-    }
+    //    osDelay(currSignal.getSignalData().signal_pause);
+    //    currSignal.StartAudio();
+    //    if (currSignal.getSignalData().duration > 0)
+    //    {
+    //        osDelay(currSignal.getSignalData().duration * 10);
+    //        currSignal.StopAudio();
+    //    }
 }
 
 uint8_t &SIGNAL::getdPSPOut()

@@ -1,0 +1,4 @@
+load STM32L432KCUx 
+project name STCubeGenerated 
+project toolchain "Makefile" 
+project path "E:\SVN\Project\PAM37K\MDK-ARM\RTE\Device\STM32L432KCUx\" 
