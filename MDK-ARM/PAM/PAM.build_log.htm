@@ -3,114 +3,149 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.25.2.0
+IDE-Version: µVision V5.26.2.0
 Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: no no, no, LIC=MGXAR-KAP7L-78RFD-8FIUW-WHZEF-VU8IE
+License Information: no no, no, LIC=X1ERA-1RNLC-150TV-PFEUK-KJDCK-S16BG
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.25.2.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
-C Compiler:      ArmClang.exe V6.9
-Assembler:       Armasm.exe V6.9
-Linker/Locator:  ArmLink.exe V6.9
-Library Manager: ArmAr.exe V6.9
-Hex Converter:   FromElf.exe V6.9
-CPU DLL:         SARMCM3.DLL V5.25.2.0
-Dialog DLL:      DCM.DLL V1.17.1.0
-Target DLL:      Segger\JL2CM3.dll V2.99.29.0
-Dialog DLL:      TCM.DLL V1.35.1.0
+Toolchain:       MDK-ARM Professional  Version: 5.26.2.0
+Toolchain Path:  C:\Keil\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.10.1
+Assembler:       Armasm.exe V6.10.1
+Linker/Locator:  ArmLink.exe V6.10.1
+Library Manager: ArmAr.exe V6.10.1
+Hex Converter:   FromElf.exe V6.10.1
+CPU DLL:         SARMCM3.DLL V5.26.2.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      Segger\JL2CM3.dll V2.99.31.0
+Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-E:\SVN\Project\PAM37K\MDK-ARM\PAM.uvprojx
-Project File Date:  08/10/2018
+\\vmware-host\Shared Folders\E\SVN\Project\PAM37K\MDK-ARM\PAM.uvprojx
+Project File Date:  10/22/2018
 
 <h2>Output:</h2>
-*** Using Compiler 'V6.9', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
-*** Warning: Using Microlib and C++ file(s) might cause the linker to fail !
+*** Using Compiler 'V6.10.1', folder: 'C:\Keil\Keil_v5\ARM\ARMCLANG\Bin'
+*** Warning: You are compiling one or more files of source type C++ and have selected 'use MicroLIB'. MicroLIB does not support C++!
   
 Build target 'PAM'
 ../Src/worker.cpp(1): warning: In file included from...
 ../Inc\global.h(4): warning: In file included from...
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(46): warning: In file included from...
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(46): warning: In file included from...
 ./RTE/Device/STM32L432KCUx/STCubeGenerated/Inc\stm32l4xx_hal_conf.h(249): warning: In file included from...
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_adc.h(48): warning: In file included from...
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2887): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_adc.h(48): warning: In file included from...
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2887): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2966): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2966): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2992): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(2992): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3025): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3025): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = (uint32_t *)((uint32_t)
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3052): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3052): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->OFR1, Offsety);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3180): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3180): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t TriggerSource = READ_BIT(ADCx->CFGR, ADC_CFGR_EXTSEL | ADC_CFGR_EXTEN);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3184): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3184): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t ShiftExten = ((TriggerSource & ADC_CFGR_EXTEN) >> (ADC_REG_TRIG_EXTEN_BITOFFSET_POS - 2U));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3516): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3516): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3625): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3625): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3914): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3914): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t TriggerSource = READ_BIT(ADCx->JSQR, ADC_JSQR_JEXTSEL | ADC_JSQR_JEXTEN);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3918): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(3918): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t ShiftJexten = ((TriggerSource & ADC_JSQR_JEXTEN) >> (ADC_INJ_TRIG_EXTEN_BITOFFSET_POS - 2U));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(4693): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(4693): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(4794): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(4794): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5070): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5070): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->CFGR, __ADC_MASK_SHIFT(AWDy, ADC_AWD_CRX_REGOFFSET_MASK)
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5203): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5203): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->CFGR, ((AWDy & ADC_AWD_CRX_REGOFFSET_MASK) >> ADC_AWD_CRX_REGOFFSET_POS)
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5206): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5206): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t AnalogWDMonitChannels = (READ_BIT(*preg, AWDy) & AWDy & ADC_AWD_CR_ALL_CHANNEL_MASK);
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5316): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5316): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, __ADC_MASK_SHIFT(AWDy, ADC_AWD_TRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5388): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5388): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, __ADC_MASK_SHIFT(AWDy, ADC_AWD_TRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5434): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(5434): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, __ADC_MASK_SHIFT(AWDy, ADC_AWD_TRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6389): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6389): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6420): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6420): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6451): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6451): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6482): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6482): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
   ^~~~~~~~~
-C:/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6513): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_adc.h(6513): warning: 'register' storage class specifier is deprecated and incompatible with C++17 [-Wdeprecated-register]
   register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
   ^~~~~~~~~
-24 warnings generated.
+../Src/worker.cpp(1): warning: In file included from...
+../Inc\global.h(4): warning: In file included from...
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal.h(46): warning: In file included from...
+./RTE/Device/STM32L432KCUx/STCubeGenerated/Inc\stm32l4xx_hal_conf.h(289): warning: In file included from...
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc\stm32l4xx_hal_flash.h(770): warning: In file included from...
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ramfunc.h(85): warning: '__RAM_FUNC' macro redefined [-Wmacro-redefined]
+#define __RAM_FUNC HAL_StatusTypeDef  __attribute__((section(".RamFunc")))
+        ^
+C:/Keil/Keil_v5/ARM/PACK/Keil/STM32L4xx_DFP/2.0.0/Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h(252): note: previous definition is here
+#define __RAM_FUNC HAL_StatusTypeDef 
+        ^
+../Src/worker.cpp(335): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+        _Error_Handler(__FILE__, __LINE__);
+                       ^
+<scratch space>(191): note: expanded from here
+"../Src/worker.cpp"
+^
+../Src/worker.cpp(349): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+            _Error_Handler(__FILE__, __LINE__);
+                           ^
+<scratch space>(193): note: expanded from here
+"../Src/worker.cpp"
+^
+../Src/worker.cpp(359): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+            _Error_Handler(__FILE__, __LINE__);
+                           ^
+<scratch space>(195): note: expanded from here
+"../Src/worker.cpp"
+^
+../Src/worker.cpp(379): warning: ISO C++11 does not allow conversion from string literal to 'char *' [-Wwritable-strings]
+        _Error_Handler(__FILE__, __LINE__);
+                       ^
+<scratch space>(197): note: expanded from here
+"../Src/worker.cpp"
+^
+29 warnings generated.
 compiling worker.cpp...
 linking...
-Program Size: Code=17192 RO-data=3016 RW-data=9124 ZI-data=1604  
-".\PAM\PAM.axf" - 0 Error(s), 24 Warning(s).
+Program Size: Code=21024 RO-data=3016 RW-data=6980 ZI-data=1836  
+".\PAM\PAM.axf" - 0 Error(s), 29 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -128,8 +163,8 @@ Package Vendor: Keil
    * Component: STM32CubeMX Version: 1.0.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32H7xx_DFP.2.1.0.pack
-                Keil.STM32H7xx_DFP.2.1.0
+                http://www.keil.com/pack/Keil.STM32H7xx_DFP.2.2.0.pack
+                Keil.STM32H7xx_DFP.2.2.0
                 STMicroelectronics STM32H7 Series Device Support and Examples
    * Component: STM32Cube Framework Version: 1.1.0
 
@@ -154,11 +189,11 @@ Package Vendor: Keil
   .\RTE\Device\STM32L432KCUx\Drivers\STM32L4xx_HAL_Driver\Inc
   .\RTE\Device\STM32L432KCUx\STCubeGenerated\Inc
   .\RTE\_PAM
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\DSP\Include
-  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
-  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L4xx_HAL_Driver\Inc
-  C:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy
+  C:\Keil\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+  C:\Keil\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\DSP\Include
+  C:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+  C:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L4xx_HAL_Driver\Inc
+  C:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy
 
 <h2>Collection of Component Files used:</h2>
 
@@ -167,28 +202,28 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.1.2
 
    * Component: ARM::CMSIS:DSP:1.5.2
-      Include file:  CMSIS\DSP\Include\arm_math.h
       Library file:  CMSIS\Lib\ARM\arm_cortexM4lf_math.lib
+      Include file:  CMSIS\DSP\Include\arm_math.h
 
    * Component: Keil::Device:STM32Cube Framework:STM32CubeMX:1.0.0
-      Include file:  STCubeGenerated\Inc\stm32l4xx_hal_conf.h
       Include file:  MX_Device.h
+      Include file:  STCubeGenerated\Inc\stm32l4xx_hal_conf.h
       Source file:   STCubeGenerated\Src\stm32l4xx_hal_msp.c
 
    * Component: Keil::Device:STM32Cube HAL:ADC:1.9.0
-      Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_adc.c
       Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_adc_ex.c
+      Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_adc.c
 
    * Component: Keil::Device:STM32Cube HAL:Common:1.9.0
-      Include file:  Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h
       Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal.c
+      Include file:  Drivers\STM32L4xx_HAL_Driver\Inc\stm32l4xx_hal.h
 
    * Component: Keil::Device:STM32Cube HAL:Cortex:1.9.0
       Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_cortex.c
 
    * Component: Keil::Device:STM32Cube HAL:DMA:1.9.0
-      Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma.c
       Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma_ex.c
+      Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_dma.c
 
    * Component: Keil::Device:STM32Cube HAL:GPIO:1.9.0
       Source file:   Drivers\STM32L4xx_HAL_Driver\Src\stm32l4xx_hal_gpio.c
@@ -214,10 +249,10 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.3.1
       Source file:   MDK\Device\Source\ARM\STM32L4xx_SB_OPT.s
-      Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
+      Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:09
 </pre>
 </body>
 </html>

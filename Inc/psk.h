@@ -13,7 +13,7 @@
 #define FFT_Length (MAX_BASE + 1) // размер окна ОБПФ
 #define SizeToFind 4              // в скольки ячейках искать максимум
 #define Max_Equ_Size 20
-
+#define EQULIZER
 #define GILBERT_POR 32               // порядок фильтра
 #define GILBERT_POR2 GILBERT_POR / 2 // половина от порядка фильтра
 
@@ -72,20 +72,21 @@ class PSK
   float Avr_Norm_Dec[2];    // отсчет прореженной огибающей
 
   float DelayLine[2][2 * MAX_BASE]; // линия задержки ФНВ (четные - реальная часть, нечетные - мнимая)
-  float FFT_Buf[2 * FFT_Length];    // входные данные для ОБПФ
-  float Mag_FNV[2 * SizeToFind];    // магнитуда ОБПФ
   float max_FNV;                    // максимум ФНВ
-  unsigned int index_max_FNV;       // частотный сдвиг
   float Corr[2];
 
   float Porog_Moda;                     // порог обнаружения моды сигнала
   int Equ_Size;                         // длина окна эквалайзера
-  float Equlizer_Line[2][Max_Equ_Size]; // окно эквалайзера
+  float Equlizer_Line[Max_Equ_Size]; // окно эквалайзера
+  uint32_t pos_put; // позиция элемента для +
+  float equ_sum;
+  float multiple_equ;  // множитель для элемента 
   float Equ_max;                        // максимум после эквалайзера
   float Porog;                          // порог обнаружения
 
   // текущие псп (четные - реальная часть (сама последовательность), нечетные - мнимая часть (0))
   float psp[2 * (MAX_BASE + 1)];
+  float elem_zero_dma; // zero fo DMA
 
 public:
   volatile short adc_sample; // отсчет АЦП
@@ -102,6 +103,7 @@ public:
   void loadQPSP(unsigned char *cod, unsigned int _base, int channel_num);
   int AverageAndCorrelation();
   int CorrellationV2();
+  void cleanInternalBuffers();
 };
 
 extern PSK psk;

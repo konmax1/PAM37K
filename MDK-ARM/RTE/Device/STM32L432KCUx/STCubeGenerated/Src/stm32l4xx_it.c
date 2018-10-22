@@ -38,7 +38,6 @@
 /* USER CODE BEGIN 0 */
 #include "global.h"
 
-
 volatile int32_t d_val = 0;
 volatile uint32_t ISR;
 /* USER CODE END 0 */
@@ -59,13 +58,13 @@ void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
-//CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
+    //CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
-//SET_BIT(GPIOA->ODR, LED_But_Pin);
+    //SET_BIT(GPIOA->ODR, LED_But_Pin);
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -131,86 +130,108 @@ void TIM6_DAC_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+//volatile float dbg_sin_val;
+//volatile uint32_t dbg_psk_cnt = 0;
+//volatile uint32_t dbg_time_cnt = 0;
 extern "C" void ADC1_IRQHandler(void)
 {
-  //t1 = DWT->CYCCNT;
-  //CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
     ISR = ADC1->ISR;
-    if( ISR & ADC_ISR_JEOS)
+    if (ISR & ADC_ISR_JEOS)
     {
-        ADC1->ISR |= ADC_ISR_JEOS;    
+        ADC1->ISR |= ADC_ISR_JEOS;
         //adc = ADC1->JDR2; // Instrumental amplifier
-        //adc = ADC1->JDR1;      // logariphmic amplifier   
-        psk.adc_sample = ADC1->JDR1;      // logariphmic amplifier   
-        if(psk.AverageAndCorrelation()) 
+        //adc = ADC1->JDR1;      // logariphmic amplifier
+        psk.adc_sample = ADC1->JDR1; // logariphmic amplifier
+//        if (dbg_psk_cnt < 255)
+//        {
+//            dbg_sin_val = psp_codInput[dbg_psk_cnt] * arm_sin_f32(0.5 * PI * dbg_time_cnt++);
+//            dbg_sin_val = 2047 * dbg_sin_val + 2048;
+//        }
+//        else
+//        {
+//            dbg_sin_val = arm_sin_f32(0.5 * PI * dbg_time_cnt++);
+//            dbg_sin_val = 2047 * dbg_sin_val + 2048;
+//        }
+//        if (dbg_time_cnt >= 4)
+//        {
+//            dbg_time_cnt = 0;
+//            dbg_psk_cnt++;
+//            if (dbg_psk_cnt >= 400)
+//            {
+//                dbg_psk_cnt = 0;
+//            }
+//        }
+//        psk.adc_sample = dbg_sin_val;
+        if (psk.AverageAndCorrelation())
         {
-            SET_BIT(statFlag,AVR_SAMPLE_RDY);
+            SET_BIT(statFlag, AVR_SAMPLE_RDY);
+//            if(psk.CorrellationV2()){
+//                ISR++;
+//            }
         }
     }
     else
-    { 
-        psk.adc_sample = ADC1->JDR2 + 1; 
+    {
+        psk.adc_sample = ADC1->JDR2 + 1;
     }
-  //SET_BIT(GPIOA->ODR, LED_But_Pin);
-  //t2 = DWT->CYCCNT;
 }
 
 extern "C" void TIM1_UP_TIM16_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
+    /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
     //t5 = TIM1->CNT;
     //t1=DWT->CYCCNT;
     //static long xHigherPriorityTaskWoken;
-    if(TIM1->SR & TIM_SR_UIF)
+    if (TIM1->SR & TIM_SR_UIF)
     {
         TIM1->SR &= ~TIM_SR_UIF;
         /*if(xTaskResumeFromISR(calcTaskHandle))
         {
         taskYIELD();
-    }*/        
-        //t2=DWT->CYCCNT;  
-        currSignal.emitingAudio();    
+    }*/
+        //t2=DWT->CYCCNT;
+        currSignal.emitingAudio();
         //t3=DWT->CYCCNT;
-        currSignal.calcNext();          
+        currSignal.calcNext();
         //t4=DWT->CYCCNT;
-        if(TIM1->SR & TIM_SR_UIF)
+        if (TIM1->SR & TIM_SR_UIF)
         {
             TIM1->SR &= ~TIM_SR_UIF;
         }
         /*xSemaphoreGiveFromISR(reCalcPWMHandle,&xHigherPriorityTaskWoken); 
         portYIELD_FROM_ISR(xHigherPriorityTaskWoken);*/
-        
+
         /*if(xHigherPriorityTaskWoken == pdTRUE)
         taskYIELD();*/
         //taskYIELD();
         //TimARR();
-        
-    }else
+    }
+    else
     {
-        if(TIM1->SR & TIM_SR_UIF)
+        if (TIM1->SR & TIM_SR_UIF)
         {
             TIM1->SR &= ~TIM_SR_UIF;
         }
     }
     //t6=DWT->CYCCNT;
-  /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
-  //HAL_TIM_IRQHandler(&htim1);
-  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
+    /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
+    //HAL_TIM_IRQHandler(&htim1);
+    /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
     //t7=DWT->CYCCNT;
-  /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
+    /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
 }
 volatile int hjf = 0;
 extern "C" void TIM2_IRQHandler()
-{ 
-    if(TIM2->SR & TIM_SR_UIF)
+{
+    if (TIM2->SR & TIM_SR_UIF)
     {
-        CLEAR_BIT(TIM2->SR,TIM_SR_UIF);
+        CLEAR_BIT(TIM2->SR, TIM_SR_UIF);
         currSignal.changePSKbit();
-        
-    }else
-    {    
+    }
+    else
+    {
         hjf = 1;
-        CLEAR_BIT(TIM2->SR,TIM_SR_UIF);
+        CLEAR_BIT(TIM2->SR, TIM_SR_UIF);
     }
 }
 

@@ -15,7 +15,7 @@ int8_t psp_codOutput[255] = {1, -1, -1, -1, -1, -1, -1, -1, 1, 1, -1, -1, 1, 1, 
                              -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1};
 #endif
 #ifdef PAM2
-int8_t psp_codInt[255] = {-1, -1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1,
+int8_t psp_codInput[255] = {-1, -1, -1, -1, -1, -1, -1, 1, -1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, 1, -1, -1, 1, -1, 1, -1, 1, 1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1,
                           1, 1, 1, 1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, -1, 1, 1, 1, -1, 1, -1, 1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1,
                           1, -1, -1, -1, -1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, 1, -1, -1, 1, 1, -1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, -1,
                           1, -1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, 1, -1, -1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, -1, 1, -1, -1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, -1,
@@ -54,6 +54,15 @@ void PSK::SetParamFSK(float f, int S, int R, float p_m, int equ, float Prg)
   Porog_Moda = p_m;                                   // порог обнаружения моды сигнала
   Equ_Size = equ;                                     // ширина эквалайзера
   Porog = Prg;                                        // порог обнаружения
+  multiple_equ = 1. / Equ_Size;
+  equ_sum = 0;
+  pos_put = 0;
+  elem_zero_dma = 0;
+#ifdef EQULIZER
+  Porog = Prg * Prg;
+#else
+
+#endif
 }
 
 void PSK::loadBPSP(unsigned char *cod, unsigned int _base, int channel_num)
@@ -148,7 +157,7 @@ int PSK::AverageAndCorrelation()
   return 0;
 }
 
-volatile int32_t maxFNVstat = 0;
+volatile float maxFNVstat = 0;
 int PSK::CorrellationV2()
 {
 
@@ -170,17 +179,62 @@ int PSK::CorrellationV2()
   delayLineDMA[2 * Base - 1] = Avr_Norm_Dec[1];
 
   arm_cmplx_mag_f32(Corr, &max_FNV, 1); // Магнитуда
-  //max_FNV /= Base;
-  //DAC1->DHR12R1 = max_FNV * 4095;
-  if (max_FNV > maxFNVstat)
+  max_FNV = max_FNV * (float)(1. / 255);
+
+#ifdef EQULIZER
+  equ_sum -= Equlizer_Line[pos_put];
+  if (max_FNV > Porog_Moda)
+  {
+    Equlizer_Line[pos_put] = max_FNV * max_FNV;
+    equ_sum += Equlizer_Line[pos_put];
+  }
+  else
+  {
+    Equlizer_Line[pos_put] = 0;
+  }
+  pos_put = (pos_put + 1) % Equ_Size;
+
+  if (equ_sum > (Porog))
+  {
+    retvalue = 1;
+  }
+#else
+  if(max_FNV > maxFNVstat)
   {
     maxFNVstat = max_FNV;
   }
   if (max_FNV > (Porog))
   {
-    retvalue = max_FNV;
+    retvalue = 1;
   }
+#endif
   return retvalue;
+}
+
+void PSK::cleanInternalBuffers()
+{
+  DMA2_Channel1->CCR &= ~DMA_CCR_EN;
+  DMA2_Channel1->CPAR = (uint32_t)&elem_zero_dma;
+  DMA2_Channel1->CMAR = (uint32_t)&Equlizer_Line[0];
+  DMA2_Channel1->CNDTR = Max_Equ_Size;
+  DMA2->IFCR |= DMA_IFCR_CTCIF1 | DMA_IFCR_CGIF1 | DMA_IFCR_CHTIF1;
+  DMA2_Channel1->CCR |= DMA_CCR_EN;
+
+  DMA2_Channel2->CCR &= ~DMA_CCR_EN;
+  DMA2_Channel2->CPAR = (uint32_t)&elem_zero_dma;
+  DMA2_Channel2->CMAR = (uint32_t)&delayLineCORR[0];
+  DMA2_Channel2->CNDTR = Base;
+  DMA2->IFCR |= DMA_IFCR_CTCIF2 | DMA_IFCR_CGIF2 | DMA_IFCR_CHTIF2;
+  DMA2_Channel2->CCR |= DMA_CCR_EN;
+
+  DMA2_Channel3->CCR &= ~DMA_CCR_EN;
+  DMA2_Channel3->CPAR = (uint32_t)&elem_zero_dma;
+  DMA2_Channel3->CMAR = (uint32_t)&delayLineDMA[0];
+  DMA2_Channel3->CNDTR = Base;
+  DMA2->IFCR |= DMA_IFCR_CTCIF3 | DMA_IFCR_CGIF3 | DMA_IFCR_CHTIF3;
+  DMA2_Channel3->CCR |= DMA_CCR_EN;
+
+  equ_sum = 0;
 }
 
 PSK psk;

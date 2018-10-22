@@ -206,7 +206,7 @@ void SIGNAL::initSinTable()
 
     for (volatile int i = 0; i <= (2 * Npoint); i++)
     {
-        sintable[i] = (arm_sin_f32(i * step) * dataOut.amplitude * rARR / 2) + (rARR / 2);
+        sintable[i] = (arm_sin_f32(i * step /*+ (PI / 8)*/) * dataOut.amplitude * rARR / 2) + (rARR / 2);
     }
 }
 
@@ -395,13 +395,10 @@ void SIGNAL::initMode(data_signal &_dsFind, data_signal &_dsOut, typeRUN _typeru
 
 void SIGNAL::emitSignal()
 {
-    //    osDelay(currSignal.getSignalData().signal_pause);
-    //    currSignal.StartAudio();
-    //    if (currSignal.getSignalData().duration > 0)
-    //    {
-    //        osDelay(currSignal.getSignalData().duration * 10);
-    //        currSignal.StopAudio();
-    //    }
+    //osDelay(currSignal.getSignalData().signal_pause);
+    currSignal.StartAudio();
+    //osDelay(currSignal.getSignalData().duration * 10);
+    //currSignal.StopAudio();
 }
 
 uint8_t &SIGNAL::getdPSPOut()

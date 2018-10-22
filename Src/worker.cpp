@@ -1,8 +1,11 @@
 #include "global.h"
 
-uint32_t statFlag = 0;
+volatile uint32_t statFlag = 0;
+volatile uint32_t needBlink = 0;
 void fullPower();
 void lowPower();
+void buttonClick();
+void MX_RTC_InitMy();
 
 void setLedPort()
 {
@@ -29,12 +32,56 @@ void setButtonPort()
     SET_BIT(GPIOA->ODR, LED_But_Pin);
 }
 
+extern "C" void HAL_SYSTICK_Callback(void)
+{ 
+	static volatile uint32_t mills = 0;
+	static volatile uint32_t counter = 10;
+	if(needBlink){
+		if(mills == 0){
+			mills = HAL_GetTick();  
+		}
+		if ((HAL_GetTick() - mills) > 500){
+			mills = HAL_GetTick();
+			counter--;
+			if(counter > 0){
+				if( (counter % 2 ) == 0){
+					setLedPort();
+					CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
+				}else{
+					setButtonPort();
+				}
+			}else{
+				needBlink = 0;
+			}
+		}
+			
+	}
+}
+
+extern "C" void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    static volatile uint32_t mills = 0;
+    if (GPIO_Pin == LED_But_Pin)
+    {
+        if ((HAL_GetTick() - mills) > 50)
+        {
+            mills = HAL_GetTick();
+            buttonClick();
+        }
+        else
+        {
+        }
+    }
+}
+
 extern "C" void setup()
 {
+    HAL_IWDG_Refresh(&hiwdg);
     currSignal.StopAudio();
     HAL_DisableDBGSleepMode();
     HAL_EnableDBGSleepMode();
     fullPower();
+    setButtonPort();
     data_signal input, output;
     input.typeSignal = eBPSK;
     input.num_kvant_psp = 5;
@@ -61,6 +108,8 @@ extern "C" void setup()
     output.DD = 0;
     output.HH = 0;
     output.MM = 0;
+		
+    HAL_IWDG_Refresh(&hiwdg);
     currSignal.initMode(input, output, eRxTx);
     psk.loadBPSP((uint8_t *)&psp_codInput[0], currSignal.getSignalData().lenPSP, 0);
     memcpy(&currSignal.getdPSPOut(), &psp_codOutput[0], currSignal.getSignalData().lenPSP);
@@ -72,37 +121,110 @@ extern "C" void setup()
     psk.SetParamFSK(currSignal.getFindData().freq1 - 30000,
                     currSignal.getFindData().num_kvant_psp / 5,
                     (currSignal.getFindData().freq1 / (currSignal.getFindData().freq1 - 30000)) - 1,
-                    0.,
-                    0.,
-                    166.);
-    HAL_ADCEx_InjectedStart_IT(&hadc1);
-    HAL_TIM_Base_Start(&htim6);
+                    0.25,
+                    20,
+                    0.45);
+		
+    HAL_IWDG_Refresh(&hiwdg);
+    lowPower();		
+    HAL_IWDG_Refresh(&hiwdg);
+    //MX_RTC_InitMy();
+}
+
+void ToogleLed(uint32_t _mills)
+{
+    static uint32_t mills;
+    static uint32_t ledIsOn = 0;
+    if (ledIsOn == 0)
+    {
+        if ((_mills - mills) > 29000)
+        {
+            mills = _mills;
+            setLedPort();
+            CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
+            ledIsOn = 1;
+        }
+    }
+    else
+    {
+        if ((_mills - mills) > 1000)
+        {
+            mills = _mills;
+            SET_BIT(GPIOA->ODR, LED_But_Pin);
+            setButtonPort();
+            ledIsOn = 0;
+        }
+    }
+}
+
+void findSignal()
+{
+    if (statFlag & AVR_SAMPLE_RDY)
+    {
+        CLEAR_BIT(statFlag, AVR_SAMPLE_RDY);
+
+        //CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
+        if (psk.CorrellationV2())
+        {
+            setLedPort();
+            CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
+            psk.cleanInternalBuffers();
+            HAL_TIM_Base_Stop(&htim6);
+						//HAL_Delay(100);
+            currSignal.emitSignal();
+            HAL_TIM_Base_Start(&htim6);
+            SET_BIT(GPIOA->ODR, LED_But_Pin);
+            setButtonPort();
+        }
+        //SET_BIT(GPIOA->ODR, LED_But_Pin);
+    }
 }
 
 extern "C" void loop()
 {
-    volatile int32_t par = 0;
-    setLedPort();
+    uint32_t mills;
+    //setLedPort();
+    //SET_BIT(GPIOA->ODR, LED_But_Pin);
     while (1)
-    { 
-        if (statFlag & AVR_SAMPLE_RDY)
+    {
+        if (RTC->BKP10R == 1)
         {
-            CLEAR_BIT(statFlag,AVR_SAMPLE_RDY);
-            
-//            CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
-            if(psk.CorrellationV2()){
-                CLEAR_BIT(GPIOA->ODR, LED_But_Pin);
-                HAL_Delay(100);
-                SET_BIT(GPIOA->ODR, LED_But_Pin);
-                par++;
-            }
-//            SET_BIT(GPIOA->ODR, LED_But_Pin);
+            findSignal();
+            ToogleLed(HAL_GetTick());
         }
+
+        HAL_IWDG_Refresh(&hiwdg);
+        HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+    }
+}
+
+void buttonClick()
+{
+    if (RTC->BKP10R == 1)
+    {
+        // уйти в сон
+        RTC->BKP10R = 0;
+        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, 0);
+        HAL_IWDG_Refresh(&hiwdg);
+        HAL_NVIC_SystemReset();
+    }
+    else
+    {
+        // начать работу
+        HAL_IWDG_Refresh(&hiwdg);
+        fullPower();
+        HAL_IWDG_Refresh(&hiwdg);
+        HAL_ADCEx_InjectedStart_IT(&hadc1);
+        HAL_TIM_Base_Start(&htim6);
+        MX_RTC_InitMy();
+        RTC->BKP10R = 1;
+				needBlink = 1;
     }
 }
 
 void fullPower()
 {
+    HAL_PWR_EnableBkUpAccess();
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -147,6 +269,7 @@ void fullPower()
 }
 void lowPower()
 {
+    HAL_PWR_EnableBkUpAccess();
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -188,4 +311,71 @@ void lowPower()
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
     PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
     HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
+}
+
+void MX_RTC_InitMy(void)
+{
+
+    RTC_TimeTypeDef sTime;
+    RTC_DateTypeDef sDate;
+    RTC_AlarmTypeDef sAlarm;
+
+    /**Initialize RTC Only 
+    */
+    hrtc.Instance = RTC;
+    hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+    hrtc.Init.AsynchPrediv = 124;
+    hrtc.Init.SynchPrediv = 6249;
+    hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+    hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
+    hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+    hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+    if (HAL_RTC_Init(&hrtc) != HAL_OK)
+    {
+        _Error_Handler(__FILE__, __LINE__);
+    }
+
+    /**Initialize RTC and set the Time and Date 
+    */
+    if (HAL_RTCEx_BKUPRead(&hrtc, RTC_BKP_DR0) != 0x32F2)
+    {
+        sTime.Hours = 0x0;
+        sTime.Minutes = 0x0;
+        sTime.Seconds = 0x0;
+        sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+        sTime.StoreOperation = RTC_STOREOPERATION_SET;
+        if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BCD) != HAL_OK)
+        {
+            _Error_Handler(__FILE__, __LINE__);
+        }
+
+        sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+        sDate.Month = RTC_MONTH_JANUARY;
+        sDate.Date = 0x1;
+        sDate.Year = 0x0;
+
+        if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BCD) != HAL_OK)
+        {
+            _Error_Handler(__FILE__, __LINE__);
+        }
+
+        HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR0, 0x32F2);
+    }
+    /**Enable the Alarm A 
+    */
+    sAlarm.AlarmTime.Hours = 0x0;
+    sAlarm.AlarmTime.Minutes = 0x0;
+    sAlarm.AlarmTime.Seconds = 0x0;
+    sAlarm.AlarmTime.SubSeconds = 0x0;
+    sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+    sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_SET;
+    sAlarm.AlarmMask = RTC_ALARMMASK_NONE;
+    sAlarm.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_ALL;
+    sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+    sAlarm.AlarmDateWeekDay = 0x1;
+    sAlarm.Alarm = RTC_ALARM_A;
+    if (HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, RTC_FORMAT_BCD) != HAL_OK)
+    {
+        _Error_Handler(__FILE__, __LINE__);
+    }
 }

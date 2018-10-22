@@ -56,6 +56,9 @@ TIM_HandleTypeDef htim6;
 
 DMA_HandleTypeDef hdma_memtomem_dma1_channel1;
 DMA_HandleTypeDef hdma_memtomem_dma1_channel2;
+DMA_HandleTypeDef hdma_memtomem_dma2_channel1;
+DMA_HandleTypeDef hdma_memtomem_dma2_channel2;
+DMA_HandleTypeDef hdma_memtomem_dma2_channel3;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
@@ -71,7 +74,7 @@ static void MX_TIM1_Init(void);
 static void MX_IWDG_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_ADC1_Init(void);
-static void MX_RTC_Init(void);
+void MX_RTC_Init(void);
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                 
@@ -119,7 +122,7 @@ int main(void)
   //MX_IWDG_Init();
   MX_TIM6_Init();
   MX_ADC1_Init();
-  MX_RTC_Init();
+  //MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   setup();
   loop();
@@ -289,7 +292,7 @@ static void MX_IWDG_Init(void)
 }
 
 /* RTC init function */
-static void MX_RTC_Init(void)
+void MX_RTC_Init(void)
 {
 
   /* USER CODE BEGIN RTC_Init 0 */
@@ -475,11 +478,15 @@ static void MX_TIM6_Init(void)
   * Configure DMA for memory to memory transfers
   *   hdma_memtomem_dma1_channel1
   *   hdma_memtomem_dma1_channel2
+  *   hdma_memtomem_dma2_channel1
+  *   hdma_memtomem_dma2_channel2
+  *   hdma_memtomem_dma2_channel3
   */
 static void MX_DMA_Init(void) 
 {
   /* DMA controller clock enable */
   __HAL_RCC_DMA1_CLK_ENABLE();
+  __HAL_RCC_DMA2_CLK_ENABLE();
 
   /* Configure DMA request hdma_memtomem_dma1_channel1 on DMA1_Channel1 */
   hdma_memtomem_dma1_channel1.Instance = DMA1_Channel1;
@@ -507,6 +514,51 @@ static void MX_DMA_Init(void)
   hdma_memtomem_dma1_channel2.Init.Mode = DMA_NORMAL;
   hdma_memtomem_dma1_channel2.Init.Priority = DMA_PRIORITY_MEDIUM;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_channel2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  /* Configure DMA request hdma_memtomem_dma2_channel1 on DMA2_Channel1 */
+  hdma_memtomem_dma2_channel1.Instance = DMA2_Channel1;
+  hdma_memtomem_dma2_channel1.Init.Request = DMA_REQUEST_0;
+  hdma_memtomem_dma2_channel1.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  hdma_memtomem_dma2_channel1.Init.PeriphInc = DMA_PINC_DISABLE;
+  hdma_memtomem_dma2_channel1.Init.MemInc = DMA_MINC_ENABLE;
+  hdma_memtomem_dma2_channel1.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel1.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel1.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma2_channel1.Init.Priority = DMA_PRIORITY_MEDIUM;
+  if (HAL_DMA_Init(&hdma_memtomem_dma2_channel1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  /* Configure DMA request hdma_memtomem_dma2_channel2 on DMA2_Channel2 */
+  hdma_memtomem_dma2_channel2.Instance = DMA2_Channel2;
+  hdma_memtomem_dma2_channel2.Init.Request = DMA_REQUEST_0;
+  hdma_memtomem_dma2_channel2.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  hdma_memtomem_dma2_channel2.Init.PeriphInc = DMA_PINC_DISABLE;
+  hdma_memtomem_dma2_channel2.Init.MemInc = DMA_MINC_ENABLE;
+  hdma_memtomem_dma2_channel2.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel2.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel2.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma2_channel2.Init.Priority = DMA_PRIORITY_MEDIUM;
+  if (HAL_DMA_Init(&hdma_memtomem_dma2_channel2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  /* Configure DMA request hdma_memtomem_dma2_channel3 on DMA2_Channel3 */
+  hdma_memtomem_dma2_channel3.Instance = DMA2_Channel3;
+  hdma_memtomem_dma2_channel3.Init.Request = DMA_REQUEST_0;
+  hdma_memtomem_dma2_channel3.Init.Direction = DMA_MEMORY_TO_MEMORY;
+  hdma_memtomem_dma2_channel3.Init.PeriphInc = DMA_PINC_DISABLE;
+  hdma_memtomem_dma2_channel3.Init.MemInc = DMA_MINC_ENABLE;
+  hdma_memtomem_dma2_channel3.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel3.Init.MemDataAlignment = DMA_MDATAALIGN_WORD;
+  hdma_memtomem_dma2_channel3.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma2_channel3.Init.Priority = DMA_PRIORITY_MEDIUM;
+  if (HAL_DMA_Init(&hdma_memtomem_dma2_channel3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }

@@ -1,3 +1,12 @@
 {
-    "C_Cpp.intelliSenseEngineFallback": "Disabled"
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "files.associations": {
+        "stm32l4xx_hal.h": "c",
+        "stm32l4xx_hal_conf.h": "c",
+        "stm32l4xx_hal_rcc.h": "c",
+        "stm32l4xx_hal_rcc_ex.h": "c",
+        "stm32l4xx_hal_def.h": "c",
+        "stm32l4xx.h": "c",
+        "stm32l432xx.h": "c"
+    }
 }

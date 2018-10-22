@@ -621,14 +621,15 @@ ARM Macro Assembler    Page 10
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --depend=.
 \pam\startup_stm32l432xx.d -o.\pam\startup_stm32l432xx.o -I.\RTE\Device\STM32L4
 32KCUx -I.\RTE\Device\STM32L432KCUx\Drivers\STM32L4xx_HAL_Driver\Inc -I.\RTE\De
-vice\STM32L432KCUx\STCubeGenerated\Inc -I.\RTE\_PAM -IC:\Keil_v5\ARM\PACK\ARM\C
-MSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\DSP\I
-nclude -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\CMSIS\Device\ST\S
-TM32L4xx\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L4
-xx_HAL_Driver\Inc -IC:\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\STM32L
-4xx_HAL_Driver\Inc\Legacy --predefine="__MICROLIB SETA 1" --predefine="__UVISIO
-N_VERSION SETA 525" --predefine="_RTE_ SETA 1" --predefine="STM32L432xx SETA 1"
- --list=startup_stm32l432xx.lst RTE\Device\STM32L432KCUx\startup_stm32l432xx.s
+vice\STM32L432KCUx\STCubeGenerated\Inc -I.\RTE\_PAM -IC:\Keil\Keil_v5\ARM\PACK\
+ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\C
+MSIS\DSP\Include -IC:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2.0.0\Drivers\CM
+SIS\Device\ST\STM32L4xx\Include -IC:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx_DFP\2
+.0.0\Drivers\STM32L4xx_HAL_Driver\Inc -IC:\Keil\Keil_v5\ARM\PACK\Keil\STM32L4xx
+_DFP\2.0.0\Drivers\STM32L4xx_HAL_Driver\Inc\Legacy --predefine="__MICROLIB SETA
+ 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --prede
+fine="STM32L432xx SETA 1" --list=startup_stm32l432xx.lst RTE\Device\STM32L432KC
+Ux\startup_stm32l432xx.s
 
 
 

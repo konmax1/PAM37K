@@ -139,7 +139,8 @@ extern volatile unsigned int t1,t2,t3,t4,t5;
 
 
 #define AVR_SAMPLE_RDY 0x00001000
-extern uint32_t statFlag;
+#define BUTTON_CLICK   0x80000000
+extern volatile uint32_t statFlag;
 
 
 
